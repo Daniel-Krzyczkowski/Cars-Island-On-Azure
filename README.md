@@ -129,9 +129,9 @@ Azure API Management is a service that works as a gateway to different APIs behi
 
 In the *src* folder there are five sub-folders:
 
-1. *ad-b2c-custom-policies* - this one contains Azure AD B2C custom policies files together with branding files
-2. *arm-templates* - this one contains Azure Resource Manager templates to create all required Azure services
-3. *func-app* - this one contains source code of the Function App responsible for sending email confirmations when car is reserved
-4. *web-api* - this one contains ASP .NET Core Web API project
-5. *web-app* - this one contains Blazor Web App project
+1. *[ad-b2c-custom-policies](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/ad-b2c-custom-policies)* - this one contains Azure AD B2C custom policies files together with branding files
+2. *[arm-templates](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/arm-templates)* - this one contains Azure Resource Manager templates to create all required Azure services
+3. *[func-app](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/func-app)* - this one contains source code of the Function App responsible for sending email confirmations when car is reserved
+4. *[web-api](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/web-api)* - this one contains ASP .NET Core Web API project
+5. *[web-app](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/web-app)* - this one contains Blazor Web App project
 
