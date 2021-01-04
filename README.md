@@ -137,4 +137,5 @@ In the *src* folder there are five sub-folders:
 3. *[func-app](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/func-app)* - this one contains source code of the Function App responsible for sending email confirmations when car is reserved
 4. *[web-api](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/web-api)* - this one contains ASP .NET Core Web API project
 5. *[web-app](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/web-app)* - this one contains Blazor Web App project
+6. *[send-grid-mail-template](https://github.com/Daniel-Krzyczkowski/Cars-Island-On-Azure/tree/master/src/send-grid-mail-template)* - this one contains SendGrid email template for car reservation confirmation
 
