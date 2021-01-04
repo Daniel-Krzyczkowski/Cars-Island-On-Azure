@@ -10,6 +10,9 @@
 
 Cars Island is a fake car rental company which used Microsoft Azure cloud services to implement the system for managing car renting.
 
+*If you like this content, please give it a star!*
+![github-start.png](images/github-start2.png)
+
 ## Use cases are following:
 
 1. Customer can create account (register)
