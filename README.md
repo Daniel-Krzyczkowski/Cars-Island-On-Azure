@@ -63,7 +63,7 @@ Cars Island is a fake car rental company which used Microsoft Azure cloud servic
 Below diagram presents Cars Island Car Rental system architecture. 
 
 <p align="center">
-<img src="images/CarsIsland9.PNG?raw=true" alt="Image not found"/>
+<img src="images/CarsIsland9.png?raw=true" alt="Image not found"/>
 </p>
 
 ## Azure Active Directory B2C
