@@ -1,4 +1,4 @@
-# Cars Island Car Rental on Azure cloud
+# Cars Island Car Rental on the Azure cloud
  
 *- This repository contains sample project where different Azure cloud services were used*
 
