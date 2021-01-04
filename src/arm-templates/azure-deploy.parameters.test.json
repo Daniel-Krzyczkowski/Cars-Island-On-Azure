@@ -1,0 +1,100 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceTags": {
+            "value": {
+                "Environment": "Test",
+                "Project": "Cars Island"
+            }
+        },
+        "appinsights_name": {
+            "value": "appi-cars-island-test"
+        },
+        "web_portal_name": {
+            "value": "app-cars-island-portal-test"
+        },
+        "web_api_name": {
+            "value": "app-cars-island-api-test"
+        },
+        "web_apps_server_farm_name": {
+            "value": "plancarsislandtest"
+        },
+        "cosmos_database_account_name": {
+            "value": "cosmos-cars-islandtest"
+        },
+        "cosmos_database_name": {
+            "value": "cars-island"
+        },
+        "cosmos_database_car_container_name": {
+            "value": "car"
+        },
+        "cosmos_database_enquiry_container_name": {
+            "value": "enquiry"
+        },
+        "storage_account_name": {
+            "value": "stcarsislandtest"
+        },
+        "keyvault": {
+            "value": {
+                "name": "kv-cars-island-test",
+                "enabledForDeployment": false,
+                "enabledForTemplateDeployment": false,
+                "enabledForDiskEncryption": false,
+                "enableSoftDelete": false,
+                "softDeleteRetentionInDays": 30
+            }
+        },
+        "service_bus_namespace_name": {
+            "value": "sb-cars-island-test"
+        },
+        "service_bus_queue_name": {
+            "value": "reservations"
+        },
+        "func_apps_server_farm_name": {
+            "value": "plancarsislandfuncapptest"
+        },
+        "func_apps_storage_account_name": {
+            "value": "stcarsislandfuncapptest"
+        },
+        "func_apps_name": {
+            "value": "func-cars-island-test"
+        },
+        "sendgrid_name": {
+            "value": "sendgrid-cars-island-test"
+        },
+        "sendgrid_plan_name": {
+            "value": "free"
+        },
+        "sendgrid_plan_publisher": {
+            "value": "Sendgrid"
+        },
+        "sendgrid_plan_product": {
+            "value": "sendgrid_azure"
+        },
+        "sendgrid_plan_promotion_code": {
+            "value": ""
+        },
+        "sendgrid_password": {
+            "value": ""
+        },
+        "sendgrid_email": {
+            "value": ""
+        },
+        "sendgrid_firstName": {
+            "value": ""
+        },
+        "sendgrid_lastName": {
+            "value": ""
+        },
+        "sendgrid_company": {
+            "value": "Cars Island Test"
+        },
+        "sendgrid_website": {
+            "value": "techmindfactory.com"
+        },
+        "sendgrid_acceptMarketingEmails": {
+            "value": "0"
+        }
+    }
+}

@@ -1,0 +1,100 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceTags": {
+            "value": {
+                "Environment": "Dev",
+                "Project": "Cars Island"
+            }
+        },
+        "appinsights_name": {
+            "value": "appi-cars-island-dev"
+        },
+        "web_portal_name": {
+            "value": "app-cars-island-portal-dev"
+        },
+        "web_api_name": {
+            "value": "app-cars-island-api-dev"
+        },
+        "web_apps_server_farm_name": {
+            "value": "plancarsislanddev"
+        },
+        "cosmos_database_account_name": {
+            "value": "cosmos-cars-island-dev"
+        },
+        "cosmos_database_name": {
+            "value": "cars-island"
+        },
+        "cosmos_database_car_container_name": {
+            "value": "car"
+        },
+        "cosmos_database_enquiry_container_name": {
+            "value": "enquiry"
+        },
+        "storage_account_name": {
+            "value": "stcarsislanddev"
+        },
+        "keyvault": {
+            "value": {
+                "name": "kv-cars-island-dev",
+                "enabledForDeployment": false,
+                "enabledForTemplateDeployment": false,
+                "enabledForDiskEncryption": false,
+                "enableSoftDelete": false,
+                "softDeleteRetentionInDays": 30
+            }
+        },
+        "service_bus_namespace_name": {
+            "value": "sb-cars-island-dev"
+        },
+        "service_bus_queue_name": {
+            "value": "reservations"
+        },
+        "func_apps_server_farm_name": {
+            "value": "plancarsislandfuncappdev"
+        },
+        "func_apps_storage_account_name": {
+            "value": "stcarsislandfuncappdev"
+        },
+        "func_apps_name": {
+            "value": "func-cars-island-dev"
+        },
+        "sendgrid_name": {
+            "value": "sendgrid-cars-island-dev"
+        },
+        "sendgrid_plan_name": {
+            "value": "free"
+        },
+        "sendgrid_plan_publisher": {
+            "value": "Sendgrid"
+        },
+        "sendgrid_plan_product": {
+            "value": "sendgrid_azure"
+        },
+        "sendgrid_plan_promotion_code": {
+            "value": ""
+        },
+        "sendgrid_password": {
+            "value": ""
+        },
+        "sendgrid_email": {
+            "value": ""
+        },
+        "sendgrid_firstName": {
+            "value": ""
+        },
+        "sendgrid_lastName": {
+            "value": ""
+        },
+        "sendgrid_company": {
+            "value": "Cars Island Dev"
+        },
+        "sendgrid_website": {
+            "value": "techmindfactory.com"
+        },
+        "sendgrid_acceptMarketingEmails": {
+            "value": "0"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "logLevel": {
+        "Default": "Error"
+      },
+      "samplingExcludedTypes": "Request",
+      "samplingSettings": {
+        "isEnabled": true
+      }
+    },
+    "logLevel": {
+      "Default": "Error"
+    }
+  }
+}

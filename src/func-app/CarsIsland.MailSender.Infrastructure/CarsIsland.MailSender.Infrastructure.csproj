@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>e501b6f7-6bd6-4020-8aba-bf2d963da975</UserSecretsId>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Cosmos" Version="4.0.0-preview3" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.16.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Graph" Version="3.21.0" />
+    <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.6" />
+    <PackageReference Include="SendGrid" Version="9.22.0" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarsIsland.MailSender.Core\CarsIsland.MailSender.Core.csproj" />
+  </ItemGroup>
+
+</Project>

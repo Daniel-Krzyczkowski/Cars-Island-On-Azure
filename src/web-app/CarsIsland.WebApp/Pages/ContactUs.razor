@@ -1,0 +1,61 @@
+﻿@page "/contactus"
+@using CarsIsland.WebApp.Data
+@using CarsIsland.WebApp.Services.Interfaces
+
+@inject ICarsIslandApiService CarsIslandApiService;
+
+<h1>Contact us</h1>
+
+<p>You can contact us using below form. We will answer immediately and try to help:</p>
+
+<EditForm Model="@customerEnquiry" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <b><p>Message title:</p></b>
+    <InputText id="topic" @bind-Value="customerEnquiry.Title" />
+    <br />
+    <br />
+    <b><p>Message content:</p></b>
+    <InputText id="topic" @bind-Value="customerEnquiry.Content" />
+    <br />
+    <br />
+    <b><p>Contact email:</p></b>
+    <InputText id="topic" @bind-Value="customerEnquiry.CustomerContactEmail" />
+    <br />
+    <br />
+    <InputFile OnChange="HandleFileSelected" multiple />
+    <br />
+    <br />
+    <p>File name: @customerEnquiry.AttachmentFileName</p>
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary">Send</button>
+    <br />
+    @if (@showConfirmation)
+    {
+        <p><b>Thank you. We have received your enquiry and we will response as soon as possible</b></p>
+    }
+
+</EditForm>
+
+@code {
+
+    private bool showConfirmation = false;
+    private CustomerEnquiry customerEnquiry = new CustomerEnquiry();
+
+    private async Task HandleValidSubmit()
+    {
+        await CarsIslandApiService.SendEnquiryAsync(customerEnquiry.AttachmentFileName, customerEnquiry);
+        customerEnquiry.Title = string.Empty;
+        customerEnquiry.Content = string.Empty;
+        customerEnquiry.CustomerContactEmail = string.Empty;
+        showConfirmation = true;
+    }
+
+    private void HandleFileSelected(InputFileChangeEventArgs files)
+    {
+        customerEnquiry.Attachment = files.GetMultipleFiles().First().OpenReadStream();
+        customerEnquiry.AttachmentFileName = files.GetMultipleFiles().First().Name;
+    }
+}

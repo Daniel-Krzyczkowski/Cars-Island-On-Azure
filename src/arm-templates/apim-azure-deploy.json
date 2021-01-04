@@ -1,0 +1,87 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceTags": {
+            "type": "object",
+            "defaultValue": {
+                "Environment": "Dev",
+                "Project": "Cars Island"
+            }
+        },
+        "api_management_name": {
+            "type": "string",
+            "defaultValue": "apim-cars-island-dev"
+        },
+        "api_management_publisher_email": {
+            "type": "string",
+            "defaultValue": "EMAIL"
+        },
+        "api_management_publisher_name": {
+            "type": "string",
+            "defaultValue": "PublisherName"
+        },
+        "notificationSenderEmail": {
+            "type": "string",
+            "defaultValue": "apimgmt-noreply@mail.windowsazure.com"
+        },
+        "sku": {
+            "type": "object",
+            "defaultValue": {
+                "name": "Developer",
+                "capacity": 1
+            }
+        },
+        "customPropertiesObject": {
+            "type": "object",
+            "defaultValue": {
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls10": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls11": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Ssl30": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls10": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls11": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Ssl30": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Protocols.Server.Http2": "False"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2019-12-01",
+            "name": "[parameters('api_management_name')]",
+            "type": "Microsoft.ApiManagement/service",
+            "location": "[resourceGroup().location]",
+            "tags": "[parameters('resourceTags')]",
+            "sku": {
+                "name": "[parameters('sku').name]",
+                "capacity": "[parameters('sku').capacity]"
+            },
+            "properties": {
+                "publisherEmail": "[parameters('api_management_publisher_email')]",
+                "publisherName": "[parameters('api_management_publisher_name')]",
+                "notificationSenderEmail": "[parameters('notificationSenderEmail')]",
+                "hostnameConfigurations": [
+                    {
+                        "type": "Proxy",
+                        "hostName": "[concat(parameters('api_management_name'), '.azure-api.net')]",
+                        "negotiateClientCertificate": false,
+                        "defaultSslBinding": true
+                    }
+                ],
+                "customProperties": "[parameters('customPropertiesObject')]",
+                "virtualNetworkType": "None",
+                "disableGateway": false,
+                "apiVersionConstraint": {}
+
+            },
+
+            "identity": {
+                "type": "SystemAssigned"
+            }
+        }
+    ],
+    "outputs": {}
+}

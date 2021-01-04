@@ -1,0 +1,230 @@
+﻿@page "/carscatalog"
+
+@using CarsIsland.WebApp.Services.Interfaces
+@using CarsIsland.WebApp.Data
+@using BlazorDateRangePicker
+
+@inject ICarsIslandApiService CarsIslandApiService;
+
+@inject IIdentityService IdentityService;
+
+<h1>Available cars catalog</h1>
+
+<p>Here are the cars available in our offer:</p>
+
+@if (cars == null)
+{
+    <p><em>Loading...</em></p>
+    @if (showAdditionalLoadingInformation)
+    {
+        <p><b>@serverUnavailableInformation</b></p>
+    }
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Price per day</th>
+                <th>Location</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in cars)
+            {
+                <tr>
+                    <td>@car.Brand</td>
+                    <td>@car.Model</td>
+                    <td>@car.PricePerDay$</td>
+                    <td>@car.Location</td>
+                    <td><img src="@car.ImageUrl" asp-append-version="true" width="200px" /></td>
+                    <td>
+                        <button class="btn btn-primary"
+                                @onclick="@(() => ReserveCar(car))">
+                            Reserve the car
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (ShowNewReservationPopup)
+{
+    if (IdentityService.IsUserAuthenticated())
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">New car reservation</h3>
+                        <button type="button" class="close"
+                                @onclick="ClosePopup">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <DateRangePicker class="form-control form-control-sm" placeholder="Select reservation dates..." @bind-StartDate="FromDate" @bind-EndDate="ToDate" />
+                        <br />
+                        <button class="btn btn-primary"
+                                @onclick="CreateReservationAsync">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    else
+    {
+        <div class="modal" tabindex="-1" style="display:block" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Reservation failed</h3>
+                        <button type="button" class="close"
+                                @onclick="ClosePopup">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>To make a new reservation you have to sign in first</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@if (ShowConfirmationPopup)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Reservation confirmation</h3>
+                    <button type="button" class="close"
+                            @onclick="ClosePopup">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Reservation created, thank you!</p>
+                    <p>You should receive confirmation email soon.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ShowConfirmationFailurePopup)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Reservation failed</h3>
+                    <button type="button" class="close"
+                            @onclick="ClosePopup">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Unfortunately reservation cannot be created</p>
+                    <p>@ReservationFailureReason</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    bool ShowNewReservationPopup = false;
+    bool ShowConfirmationPopup = false;
+    bool ShowConfirmationFailurePopup = false;
+    string ReservationFailureReason = string.Empty;
+    Car SelectedCar;
+    DateTimeOffset? FromDate { get; set; }
+    DateTimeOffset? ToDate { get; set; }
+    string ContactNumber { get; set; }
+
+    void ReserveCar(Car selectedCar)
+    {
+        SelectedCar = selectedCar;
+        ShowNewReservationPopup = true;
+    }
+
+    void ClosePopup()
+    {
+        ShowNewReservationPopup = false;
+        ShowConfirmationPopup = false;
+        ShowConfirmationFailurePopup = false;
+    }
+
+    private async Task CreateReservationAsync()
+    {
+        ShowNewReservationPopup = false;
+        ShowConfirmationPopup = false;
+
+        if (FromDate == null || ToDate == null)
+        {
+            ShowConfirmationFailurePopup = true;
+            ReservationFailureReason = "Please provide dates for the new reservation.";
+        }
+
+        else
+        {
+            var carReservation = new CarReservation
+            {
+                CarId = SelectedCar.Id,
+                RentFrom = FromDate.Value.UtcDateTime,
+                RentTo = ToDate.Value.UtcDateTime
+            };
+
+            var operationResponse = await CarsIslandApiService.CreateNewCarReservationAsync(carReservation);
+
+            if (operationResponse.CompletedWithSuccess)
+            {
+                ShowConfirmationPopup = true;
+            }
+
+            else
+            {
+                ShowConfirmationFailurePopup = true;
+                ReservationFailureReason = operationResponse.OperationError.Details;
+            }
+        }
+    }
+
+
+    private IReadOnlyCollection<Car> cars;
+    private bool showAdditionalLoadingInformation = false;
+    private string serverUnavailableInformation = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            cars = await CarsIslandApiService.GetAvailableCarsAsync();
+            showAdditionalLoadingInformation = false;
+        }
+
+        catch (ApplicationException)
+        {
+            serverUnavailableInformation = "We cannot get cars from the server. Please try again";
+            showAdditionalLoadingInformation = true;
+        }
+
+        catch (Polly.CircuitBreaker.BrokenCircuitException)
+        {
+            serverUnavailableInformation = "Server is busy... Please wait, we will try to send the request again soon...";
+            showAdditionalLoadingInformation = true;
+        }
+    }
+}
