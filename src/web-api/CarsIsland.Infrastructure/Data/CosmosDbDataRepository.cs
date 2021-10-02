@@ -96,8 +96,8 @@ namespace CarsIsland.Infrastructure.Data
             {
                 CosmosContainer container = GetContainer();
 
-                ItemResponse<BaseEntity> entityResult = await container
-                                                           .ReadItemAsync<BaseEntity>(entity.Id.ToString(), new PartitionKey(entity.Id.ToString()));
+                ItemResponse<T> entityResult = await container
+                                                           .ReadItemAsync<T>(entity.Id.ToString(), new PartitionKey(entity.Id.ToString()));
 
                 if (entityResult != null)
                 {
